@@ -1,0 +1,38 @@
+---
+import { Table, TableHeader, TableHead, TableBody, TableRow, TableCell } from "../components/ui/table"
+import { getValidatorStates } from '../services';
+
+const states = await getValidatorStates();
+
+---
+
+<Table>
+  <TableHeader>
+    <TableHead>Chain</TableHead>
+    <TableHead>Height</TableHead>
+    <TableHead>Moniker</TableHead>
+    <TableHead>Bonded</TableHead>
+    <TableHead>Uptime</TableHead>
+    <TableHead>Nodes</TableHead>
+  </TableHeader>
+  <TableBody>
+    <!-- <TableRow>
+      <TableCell className="font-medium">INV001</TableCell>
+      <TableCell>Paid</TableCell>
+      <TableCell>Credit Card</TableCell>
+      <TableCell className="text-right">$250.00</TableCell>
+    </TableRow> -->
+    {
+      states?.Status.map((item) => 
+        <TableRow>
+          <TableCell>{item.name} ({item.chain_id})</TableCell>  
+          <TableCell>{item.height}</TableCell>
+          <TableCell>{item.moniker}</TableCell>
+          <TableCell>{item.bonded ? "✅" : "❌"}</TableCell>
+          <TableCell></TableCell>
+          <TableCell>{item.healthy_nodes}/{item.nodes}</TableCell>
+        </TableRow>
+      )
+    }
+  </TableBody>
+</Table>
