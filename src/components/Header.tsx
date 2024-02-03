@@ -24,9 +24,7 @@ export const Header = ({ url }: Props): ReactElement => {
         <NavigationMenu className="w-full">
           <NavigationMenuList className="flex items-center justify-between">
             <NavigationMenuItem>
-              <NavigationMenuLink href="/logs">
-                <NavigationMenuItem>Logs</NavigationMenuItem>
-              </NavigationMenuLink>
+              <NavigationMenuLink href="/logs">Logs</NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
