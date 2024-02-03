@@ -1,9 +1,9 @@
 ---
 import { Table, TableHeader, TableHead, TableBody, TableRow, TableCell } from "../components/ui/table"
+import { Badge } from '../components/ui/badge'
 import { getValidatorStates } from '../services';
 
 const states = await getValidatorStates();
-
 ---
 
 <Table>
@@ -16,20 +16,19 @@ const states = await getValidatorStates();
     <TableHead>Nodes</TableHead>
   </TableHeader>
   <TableBody>
-    <!-- <TableRow>
-      <TableCell className="font-medium">INV001</TableCell>
-      <TableCell>Paid</TableCell>
-      <TableCell>Credit Card</TableCell>
-      <TableCell className="text-right">$250.00</TableCell>
-    </TableRow> -->
     {
       states?.Status.map((item) => 
         <TableRow>
-          <TableCell>{item.name} ({item.chain_id})</TableCell>  
+          <TableCell>
+            {item.name}
+            <span class="ml-2">
+              <Badge variant='secondary'>{item.chain_id}</Badge>  
+            </span>
+          </TableCell>  
           <TableCell>{item.height}</TableCell>
           <TableCell>{item.moniker}</TableCell>
           <TableCell>{item.bonded ? "✅" : "❌"}</TableCell>
-          <TableCell></TableCell>
+          <TableCell>{((item.missed / item.window) * 100).toPrecision(2)}% ({item.missed}/{item.window})</TableCell>
           <TableCell>{item.healthy_nodes}/{item.nodes}</TableCell>
         </TableRow>
       )
