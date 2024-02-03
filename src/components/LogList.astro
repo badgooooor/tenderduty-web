@@ -1,9 +1,10 @@
 ---
 import { getLogs } from "../services";
+import dayjs from 'dayjs'
 
 const logs = await getLogs()
 ---
 
 <div class="bg-black p-4 w-full h-72 overflow-scroll">
-  {logs.map(log => <p class="text-white">{log.ts}: {log.msg}</p>)}
+  {logs.map(log => <p class="text-white">{dayjs.unix(log.ts).format('DD/MM/YY HH:mm:ss')} - {log.msg}</p>)}
 </div>
