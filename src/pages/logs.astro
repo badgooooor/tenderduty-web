@@ -1,7 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import LogList from '../components/LogList.astro'
+import { getIsLogsEnabled } from "../services";
+
+const logsEnabled = await getIsLogsEnabled();
 ---
 
 <Layout title="Tenderduty -- Logs">
-  <div>Logs</div>
+  {logsEnabled?.enabled === true ? <LogList /> : <div>Log is not available.</div>}
 </Layout>

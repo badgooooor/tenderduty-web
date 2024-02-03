@@ -5,3 +5,7 @@ export type Log = {
   ts: number
   msg: string
 }
+
+export type LogAvailableResponse = {
+  enabled: boolean
+}

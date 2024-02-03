@@ -1,0 +1,9 @@
+---
+import { getLogs } from "../services";
+
+const logs = await getLogs()
+---
+
+<div class="bg-black p-4 w-full h-72 overflow-scroll">
+  {logs.map(log => <p class="text-white">{log.ts}: {log.msg}</p>)}
+</div>
