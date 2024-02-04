@@ -1,9 +1,13 @@
 ---
 import { Table, TableHeader, TableHead, TableBody, TableRow, TableCell } from "../components/ui/table"
 import { Badge } from '../components/ui/badge'
-import { getValidatorStates } from '../services';
+import type { ValidatorStatus } from "../types";
 
-const states = await getValidatorStates();
+type Props = {
+  status: ValidatorStatus[];
+}
+
+const { status } = Astro.props
 ---
 
 <Table>
@@ -17,7 +21,7 @@ const states = await getValidatorStates();
   </TableHeader>
   <TableBody>
     {
-      states?.Status.map((item) => 
+      status.map((item) => 
         <TableRow>
           <TableCell>
             {item.name}
@@ -28,7 +32,7 @@ const states = await getValidatorStates();
           <TableCell>{item.height}</TableCell>
           <TableCell>{item.moniker}</TableCell>
           <TableCell>{item.bonded ? "✅" : "❌"}</TableCell>
-          <TableCell>{((item.missed / item.window) * 100).toPrecision(2)}% ({item.missed}/{item.window})</TableCell>
+          <TableCell>{(((item.window - item.missed) / item.window) * 100).toFixed(2)}% ({item.missed}/{item.window})</TableCell>
           <TableCell>{item.healthy_nodes}/{item.nodes}</TableCell>
         </TableRow>
       )

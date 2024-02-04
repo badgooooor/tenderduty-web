@@ -1,10 +1,30 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ValidatorStateTable from '../components/ValidatorStateTable.astro';
+import Tracker from '../components/Tracker.svelte'
+import { getValidatorStates } from '../services';
+import type { TrackerItem } from '../types';
+import { getTrackerItemFromBlock } from '../utils'
+
+const states = await getValidatorStates();
+
+const trackerData = states?.Status.reduce<Record<string, TrackerItem[]>>((acc, current) => {
+	const trackerItems = current.blocks.map(block => getTrackerItemFromBlock(block))
+	acc[current.name] = trackerItems
+	return acc
+}, {});
 ---
 
 <Layout title="Tenderduty">
 	<div>
-		<ValidatorStateTable />
+		<div class="grid grid-cols-[100px_minmax(200px,_1fr)]-1fr gap-1 overflow-x-scroll">
+			{states?.Status.map((item) => 
+				<>
+					<div>{item.name}</div>
+					<Tracker client:idle data={trackerData?.[item.name]?? []} />
+				</>
+			)}
+		</div>
+		<ValidatorStateTable status={states?.Status ?? []} />
 	</div>
 </Layout>
