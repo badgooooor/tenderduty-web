@@ -17,7 +17,7 @@ const trackerData = states?.Status.reduce<Record<string, TrackerItem[]>>((acc, c
 
 <Layout title="Tenderduty">
 	<div>
-		<div class="grid grid-cols-[100px_minmax(200px,_1fr)]-1fr gap-1 overflow-x-scroll">
+		<div class="grid grid-cols-[100px_minmax(200px,_1fr)]-1fr gap-1 overflow-x-scroll mb-8">
 			{states?.Status.map((item) => 
 				<>
 					<div>{item.name}</div>
@@ -25,6 +25,7 @@ const trackerData = states?.Status.reduce<Record<string, TrackerItem[]>>((acc, c
 				</>
 			)}
 		</div>
+		<div class="text-lg text-semibold">Validators</div>
 		<ValidatorStateTable status={states?.Status ?? []} />
 	</div>
 </Layout>
